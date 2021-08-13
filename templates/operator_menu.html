@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'config_editor/css/config_editor.css' | staticfile}}">
+    <title>Меню оператора</title>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <header class="text-center">
+            <img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+        </header>
+        <main>
+            <div class="wash-screen-wrapper">
+                {% if robotsCount < 3 %}
+                <div class="title">Меню оператора</div>
+                {% endif %}
+                {% for number in range(1, robotsCount + 1) %}
+                <div class="wash-screen">
+                    <div id="ext_sensor_state_{{number}}" class="sensor"></div>
+                    <div id="mid_sensor_state_{{number}}" class="sensor"></div>
+                    <div id="ent_sensor_state_{{number}}" class="sensor"></div>
+                    <button class="robot_maintenance"
+                            onclick="BackEnd.onButtonClick('set_robot_maintenance_{{number}}',
+                            JSON.stringify(this.data));"><span id="robot_{{number}}_maintenance">???</span>
+                    </button>
+                    <div id="robot_{{number}}" class="robot">
+                        <span id="robot_{{number}}_status" class="connected"></span>
+                        <span class="text">Робот {{number}}</span>
+                    </div>
+                    <div id="car_{{number}}" class="no-car">
+                        <button class="reset-car" onclick="BackEnd.onButtonClick('reset_car_in_robot_{{number}}',
+                                JSON.stringify(this.data));">Сбросить очередь
+                        </button>
+                    </div>
+                    <div class="gate-control entrance">
+                        <button onclick="BackEnd.onButtonClick('open_entry_gate_{{number}}',
+                                JSON.stringify(this.data));">Открыть
+                        </button>
+                        <button onclick="BackEnd.onButtonClick('close_entry_gate_{{number}}',
+                                JSON.stringify(this.data));">Закрыть
+                        </button>
+                    </div>
+                    <div class="gate-control exit">
+                        <button onclick="BackEnd.onButtonClick('open_exit_gate_{{number}}',
+                                JSON.stringify(this.data));">Открыть
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <footer>
+        <div class="container d-flex justify-content-between">
+            <div class="btn-nav" onclick="BackEnd.onButtonClick('main', JSON.stringify(this.data));"
+                 href="" style="margin-right: 80px;">Выйти на главный экран
+            </div>
+            <div class="btn-nav" onclick="BackEnd.onButtonClick('reboot', JSON.stringify(this.data));"
+                 href="" style="margin-left: 80px;">Перезагрузить терминал
+            </div>
+        </div>
+        </footer>
+    </div>
+</body>
+</html>

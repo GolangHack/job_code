@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+
+    <script src="{{'config_editor/vue.js' | staticfile}}"></script>
+	<link rel="stylesheet" href="{{'config_editor/css/config_editor.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'config_editor/css/jquery.keypad.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'config_editor/scroll/jquery.mCustomScrollbar.css' | staticfile}}">
+
+    <script src="{{'config_editor/jquery.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.plugin.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.keypad.js' | staticfile}}"></script>
+    <script src="{{'config_editor/scroll/jquery.mCustomScrollbar.concat.min.js' | staticfile}}"></script>
+    <script type="text/javascript" src="{{'config_editor/js/jquery.keypad-ru.js' | staticfile}}"></script>
+	<title>Config editor</title>
+</head>
+{% raw %}
+<body>
+	<div class="wrapper" id="wrapper" style="height: 100%;">
+		<main id="app">
+            <div id="scrolable" class="content-configurator mCustomScrollbar"  data-mcs-theme="dark">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="title-conf">Редактирофание файла конфигурации</div>
+                        <div v-for="(object, name_scheme) in data">
+                            <h3 style="text-align: center">{{ name_scheme }}</h3>
+                            <div v-for="(value, name) in object" class="form-group">
+                              <label :for="name">{{ name }}:</label>
+                              <input type="text"
+                                     class="form-control"
+                                     :id="name"
+                                     :value="value"
+                                     @change="changeWathcher(name_scheme, name, $event)"
+                                     @click="bindKeypad(name)"
+                              >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="d-flex justify-content-between" style="padding-bottom: 35px;">
+                        <div href="" class="btn-menu prev"
+                             onclick="BackEnd.onButtonClick('main', JSON.stringify(this.data));">
+                            <span style="text-align: center;">Главный экран</span></div>
+                        <div href="" class="btn-menu next" @click="saveChanges">
+                            <span style="text-align: center;">Сохранить изменения</span></div>
+                        <!--div href="" class="btn-nav" @click="setPrevConfiguration">
+                            Вернуться к предыдущей конфигурации
+                        </div-->
+                        <!--div href="" class="btn-nav" @click="setDefaultConfiguration">
+                            Вернуться к конфигурации по умолчанию
+                        </div-->
+                    </div>
+                </div>
+            </div>
+		</main>
+	</div>
+{% endraw %}
+<script>
+var app = new Vue({
+    el: '#wrapper',
+    data: {
+        data: {{ jsonproperty }}
+        //
+    },
+    methods: {
+        bindKeypad: function(name){
+            $.keypad.setDefaults($.keypad.regionalOptions['ru']);
+            $('#'+name).keypad({
+                keypadOnly: false,
+                layout: $.keypad.switchLayout
+            }).focus();
+
+        },
+        changeWathcher: function(scheme, name, e){
+            console.log("Changes")
+
+            this.data[scheme][name] = event.target.value
+        },
+        saveChanges: function(){
+            isSave = confirm("Вы уверены, что хотите сохранить настройки?");
+            if (isSave){
+                BackEnd.onButtonClick("saveChanges", JSON.stringify(this.data));
+                alert("Настройки были сохранены и будут применены при следующем запуске системы")
+            }else{
+                alert("Сохранение настроек не произошло")
+            }
+        },
+        setPrevConfiguration: function () {
+            isSave = confirm("Вы уверены, что хотите вернуться к предыдущей конфигурации?");
+            if (isSave){
+                BackEnd.onButtonClick('setPrevConfiguration',"");
+                alert("Настройки были сохранены и будут применены при следующем запуске системы")
+            }else{
+                alert("Сохранение настроек не произошло")
+            }
+
+        },
+        setDefaultConfiguration: function () {
+            isSave = confirm("Вы уверены, что хотите вернуться к конфигурации по умолчанию?");
+            if (isSave){
+                BackEnd.onButtonClick('setDefaultConfiguration',"");
+                alert("Настройки были сохранены и будут применены при следующем запуске системы")
+            }else{
+                alert("Сохранение настроек не произошло")
+            }
+
+        }
+
+    }
+});
+/*SCROLL*/
+(function($){
+    $(window).load(function(){
+        $("#wrapper").mCustomScrollbar({
+            axis:"y",
+            scrollInertia: 1200,
+            snapAmount: 200
+        });
+    });
+})(jQuery);
+</script>
+</body>
+</html>

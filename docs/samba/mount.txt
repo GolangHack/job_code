@@ -1,0 +1,5 @@
+# Mount line
+sudo mount -t cifs -o guest //10.0.10.111/logs /home/pi/logs
+
+# Automount delay in fstab
+x-systemd.automount,x-systemd.device-timeout=3,uid=1000,gid=1000

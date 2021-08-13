@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<style>
+table {
+    border-collapse: collapse;
+    border:1px solid #000000;
+}
+table td{
+    border:1px dotted #000000;
+    padding:5px;
+}
+table td:first-child{
+    border-left:0px solid #000000;
+}
+table th{
+   border:1px solid #000000;
+   padding:5px;
+}
+</style>
+<body>
+<center>
+    <h3>Отчет за промежуток времени</h3>
+</center>
+<i>Общая информация отчета</i><br>
+<table width="100%">
+    <thead>
+    <tr>
+        <th width="35%">Наименование</th>
+        <th width="65%">Значение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Уникальный номер отчета</td>
+        <td>{{ report.id }}</td>
+    </tr>
+    <tr>
+        <td>Дата отправки отчета</td>
+        <td>{{dateSendedReport}}</td>
+    </tr>
+    <tr>
+        <td>Период отчета</td>
+        <td>С {{report.start_date_time}} по {{report.end_date_time}}</td>
+    </tr>
+    <tr>
+        <td>Итоговая сумма</td>
+        <td>{{report.amount}}</td>
+    </tr>
+    <!--tr>
+        <td>Количество моек</td>
+        <td>{{report['wash_count']}}</td>
+    </tr-->
+    </tbody>
+</table>
+<br>
+<i>Дополнительная информация доступна с облачного сервиса</i><br>
+</body>
+</html>

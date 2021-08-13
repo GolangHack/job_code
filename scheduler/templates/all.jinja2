@@ -1,0 +1,30 @@
+,,,,
+,,,,
+,Общая информация,,,
+№,Наименование,Значение,,
+,Дата отчета,{{now}},,
+,Период отчета с,{{ report_all_time_start }},по,{{ now }}
+,Количество купленных карт,{{data["bought_cards"]}},,
+,Количество выданных на сдачу купюр,{{ data["take_bils_on_shor_change"] }},,
+{% for key, value in data["wash_on_programs_name"].items() %}
+,Количество моек по программе {{ key }} {{value}},{{data["wash_on_programs_count"][key]}},
+{% endfor %}
+,Количество оплат клиентскими картами,{{data["payment_by_client_cards"]}},,
+,,,,
+,Финансовая информация. Мойки,,,
+№,Наименование,{% for i in data["inserted_money"] | unpack_key %}Робот {{ i }},{% endfor %}Итог
+,Внесенных средств,{{data["inserted_money"] | unpack_for_wash}}
+,Внесенных наличных средств,{{data["insert_nal_money"] |unpack_for_wash}}
+,Внесенных с клиентских карт средств,{{data["insert_client_card_money"] | unpack_for_wash}}
+,Внесенных с банковских карт средств,{{data["insert_bank_card_money"] | unpack_for_wash}}
+{% for value in data["all_payment_info_by_program"] %}
+,{% for rowkey in value %}{{ rowkey }},{% endfor %}
+{% endfor %}
+,,,,
+,Финансовая информация. Клиентские карты,,,
+№,Наименование,,,
+,Внесенных средств,{{ data["card_inserted_money"] }},,
+,Внесенных наличных средств,{{ data["card_insert_nal_money"] }},,
+,Внесенных с банковских карт средств,{{ data["card_insert_bank_card_money"] }},,
+,Сумма оплат за приобретение клиентской карты,{{ data["card_sum_bought_cards"] }},,
+,"Сумма кэшбэка, перечисленного на клиентские карты",{{ data["card_sum_cashback_send_cards"] }},,

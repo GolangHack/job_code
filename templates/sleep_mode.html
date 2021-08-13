@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>sleep_mode</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title">Терминал не работает</div>
+			<div class="container">
+				<div class="text-center">
+					<p>{{sleep_mode_text}}</p>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+				<a id="btn0" href="BackEnd.onButtonClick" data-bind="true"
+				   style="position: absolute; top: 0px; left: 0px; width: 200px; height: 200px;"></a>
+				<a id="btn1" href="BackEnd.onButtonClick" data-bind="true"
+				   style="position: absolute; top: 0px; right: 0px; width: 200px; height: 200px;"></a>
+				<a id="btn2" href="BackEnd.onButtonClick" data-bind="true"
+				   style="position: absolute; bottom: 0px; left: 0px; width: 200px; height: 200px;"></a>
+				<a id="btn3" href="BackEnd.onButtonClick" data-bind="true"
+				   style="position: absolute; bottom: 0px; right: 0px; width: 200px; height: 200px;"></a>
+			</div>
+		</footer>
+	</div>
+	<script>
+		var counter1 = 0;
+		var counter2 = 0;
+		var counter3 = 0;
+		btn0.addEventListener("click", startTimerAndSetCounters)
+		btn1.addEventListener("click", enlargeCounter1)
+		btn2.addEventListener("click", enlargeCounter2)
+		btn3.addEventListener("click", enlargeCounter3)
+		function startTimerAndSetCounters() {
+			counter1 = 0;
+			counter2 = 0;
+			counter3 = 0;
+			setTimeout(checkCountersAndChangePage, 4000);
+		}
+		function enlargeCounter1() {
+			counter1++;
+		}
+		function enlargeCounter2() {
+			counter2++;
+		}
+		function enlargeCounter3() {
+			counter3++;
+		}
+		function checkCountersAndChangePage() {
+			if ((counter1 == 1) && (counter2 == 1) && (counter3 == 1)) {
+				BackEnd.onButtonClick("enterMainPage", "");
+			}
+		}
+	</script>
+</body>
+</html>

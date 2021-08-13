@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' |staticfile }}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+    <script src="{{'config_editor/vue.js' | staticfile}}"></script>
+    <title>Want Add Phone</title>
+</head>
+<body>
+<style>
+.input-group {
+    display: flex;
+    margin: 20px auto 330px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.input-group .form-group {
+    margin-bottom: 34px;
+}
+.input-group .form-group:last-child {
+    margin-bottom: 0;
+}
+.input-group .styled-input {
+    width: 1104px;
+    height: 103px;
+    border: none !important;
+    padding: 0 36px;
+    font-size: 46px;
+    line-height: 46px;
+    color: #0d798d;
+    background: transparent url({{'input-back_styled.png' | staticfile}}) no-repeat center center;
+}
+.styled-input:focus {
+    border: none !important;
+    outline: none !important;
+}
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+.styled-checkbox + label {
+    position: relative;
+    cursor: pointer;
+    font-size: 28px;
+    margin-bottom: 0;
+    line-height: 36px;
+    padding-left: 50px;
+}
+.styled-checkbox + label:before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 36px;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.styled-checkbox:hover + label:before {
+
+}
+.styled-checkbox:focus + label:before {
+
+}
+.styled-checkbox:checked + label:before {
+
+}
+.styled-checkbox:disabled + label {
+    color: #b8b8b8;
+    cursor: auto;
+}
+.styled-checkbox:disabled + label:before {
+    box-shadow: none;
+    background: #ddd;
+}
+.styled-checkbox:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    background: transparent url('{{'check_icon.png' | staticfile}}') no-repeat center center;
+    width: 28px;
+    height: 28px;
+}
+.keypad-popup {
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    left: 50% !important;
+    width: 1200px !important;
+}
+.keypad-popup .keypad-space {
+    width: 1rem;
+}
+
+.acceptText a{
+    color: #00ffff;
+    text-decoration: #0b2e13;
+}
+</style>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title">Привязать номер телефона к карте?</div>
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                <div class="form-group" style="margin-left: 16px;">
+                    <input id="check_1"
+                           type="checkbox"
+                           class="styled-checkbox"
+                           v-model="data.dontRequest">
+                    <label for="check_1" class="acceptText">Больше не спрашивать</label>
+                </div>
+                </div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="attach" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Привязать</span></a>
+					<a id="skip" href="BackEnd.onButtonClick" data-bind="true"
+							:data-params="databind" class="btn-menu next animated"
+							enterAnimation="fadeInRight" loadingActivated="true"
+							onClickAnimation="fadeOutRight">
+						<span>Пропустить</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+    <script>
+		var app = new Vue({
+			el: '#wrapper',
+			data: {
+				data: {
+				    dontRequest:false
+				}
+			},
+			computed: {
+				databind: function () {
+					return '\''+this.data.dontRequest+'\''
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+
+<!--	<link rel="stylesheet" href="{{'config_editor/css/config_editor.css' | staticfile}}">-->
+    <link rel="stylesheet" href="{{'config_editor/css/jquery.keypad.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'config_editor/scroll/jquery.mCustomScrollbar.css' | staticfile}}">
+
+    <script src="{{'config_editor/jquery.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.plugin.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.keypad.js' | staticfile}}"></script>
+    <script src="{{'config_editor/scroll/jquery.mCustomScrollbar.concat.min.js' | staticfile}}"></script>
+    <script type="text/javascript" src="{{'config_editor/js/jquery.keypad-ru.js' | staticfile}}"></script>
+
+	<title>change_card</title>
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+	<header class="text-center">
+		<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+	</header>
+	<main>
+		<div class="title">Введите описание карты</div>
+		<div class="container">
+			<span style="font-size: 30px;">UID: {{ operationScenario.cardUid }}</span><br>
+			<input type="text" id="descriptionCard" class="form-control" maxlength="100"
+				   onclick="bindKeypad(name)">
+		</div>
+	</main>
+	<footer>
+		<div class="container">
+			<div class="d-flex justify-content-between">
+				<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+						data-params="''" class="btn-menu prev animated"
+						enterAnimation="fadeInLeft" loadingActivated="true"
+						onClickAnimation="fadeOutLeft">
+					<span>Главный экран</span></a>
+				<div href="" class="btn-menu next" onclick="saveCompanyCard();">
+					<span style="text-align: center;">Сохранить</span></div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+		</div>
+	</footer>
+</div>
+<script>
+	function saveCompanyCard(){
+		var description=document.getElementById("descriptionCard").value;
+		alert("Карта успешно добавлена");
+		BackEnd.onButtonClick('saveCompanyCard', description);
+	}
+	function bindKeypad(){
+		$.keypad.setDefaults($.keypad.regionalOptions['ru']);
+		$('#descriptionCard').keypad({
+			keypadOnly: false,
+			layout: $.keypad.switchLayout
+		}).focus();
+	}
+</script>
+</body>
+</html>

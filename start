@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export DISPLAY=:0.0
+cd /home/pi/python/
+lxterminal  --command="/bin/bash -c '/home/pi/python/main.py; /bin/bash'"

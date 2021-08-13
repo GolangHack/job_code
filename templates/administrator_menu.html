@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>administrator_menu</title>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+		<div class="title" style="padding: 0;">Меню администрирования</div>
+			<div class="container">
+				<div class="button-area">
+					<div class="button-container">
+						<a id="toBillDispenserActions" href="BackEnd.onButtonClick"
+                           class="btn-option no-icon animated" data-bind="true" data-params="''"
+                           onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Разменник купюр и купюроприемник</span></a></div>
+					<div class="button-container">
+						<a id="toConfig" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Перейти в конфигурирование мойки</span></a></div>
+					<div class="button-container">
+						<a id="toChangeCardForCompany" href="BackEnd.onButtonClick"
+                           class="btn-option no-icon animated" data-bind="true" data-params="''"
+                           onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+                            <span>Перевести карту в режим юридического лица</span></a></div>
+					<div class="button-container">
+						<a id="toReportControl" href="BackEnd.onButtonClick"
+                           class="btn-option no-icon animated" data-bind="true" data-params="''"
+                           onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Управление отчетами юридичиского лица</span></a></div>
+                </div>
+            </div>
+            {% if updater_enable and must_update %}
+            <div class="container one-collumn">
+                <div class="button-area">
+                    <p id="info" style="text-align: center;">Имеется новая версия ПО.<br>Нажмите "Обновления" для
+                    подробной информации.</p>
+					<div class="button-container">
+						<a id="updates" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Обновления</span></a></div>
+				</div>
+			</div>
+            {% endif %}
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

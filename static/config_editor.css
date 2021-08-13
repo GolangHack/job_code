@@ -1,0 +1,43 @@
+body{
+	background: #00829b url(back.png) bottom center !important;
+}
+.navigator{
+	text-align: center;
+}
+.text-betwen-btn{
+	padding-top: 23px;
+	width: 25%
+}
+.btn-nav {
+	display: flex;
+	position: relative;
+	width: 37%;
+	height: 70px;
+	border: 8px solid #0a7a8f;
+	background-color: #fff;
+	color: #0d798d;
+	font-size: 32px;
+	border-radius: 15px;
+	outline: none;
+	line-height: 36px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+	float: left;
+	text-align: center;
+}
+.btn-nav:hover {
+	border: 8px solid #10d8ff;
+	text-decoration: none;
+	color: #0d798d;
+}
+.title-conf{
+	text-align: center;
+	font-size: 36px;
+	width: 1180px;
+	margin: 0 auto;
+}
+.content-configurator{
+	padding-left: 10px;
+	padding-right: 10px;
+}

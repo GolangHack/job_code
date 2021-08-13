@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+    <title>Main</title>
+</head>
+<body>
+<div class="wrapper">
+    <header class="text-center">
+        <img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+    </header>
+    <main>
+        <div class="title">Бесконтактная мойка автомобиля</div>
+        <div class="container
+                    {% if robotsCount <= 2 and not manualModeAllowed %} one-collumn {% endif %}">
+            <div class="button-area">
+                {% if smart_selection_enabled or robotsCount == 1 %}
+                    <div class="button-container">
+                        <a id="robot1" href="BackEnd.onButtonClick" data-bind="true"
+                           data-params="''" class="btn-option carwashfront animated"
+                           onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+                            <span>Оплатить робота</span>
+                        </a>
+                    </div>
+                {% else %}
+                    {% for number in range(1, robotsCount + 1) %}
+                        <div class="button-container">
+                            <a id="robot{{ number }}" href="BackEnd.onButtonClick" data-bind="true"
+                               data-params="''" class="btn-option carwashfront animated"
+                               onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+                                <span>Оплатить робота {{ number }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                {% if manualModeAllowed %}
+                    <div class="button-container">
+                        <a id="manual_mode" href="BackEnd.onButtonClick" data-bind="true"
+                           data-params="''" class="btn-option atmprint animated "
+                           onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+                            <span>Ручная мойка</span>
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="button-container">
+                    <a id="client_card" href="BackEnd.onButtonClick" data-bind="true"
+                       data-params="''" class="btn-option idcard animated "
+                       onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+                        <span>{{ mainPageTextButtonClientCard }}</span>
+                        <span class="advanced-text">Кэшбэк 10%</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="info-contants text-center">
+                По всем вопросам обращаться по тел. {{phone_number}}
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>pay_qr</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+		<div class="container" style="margin-top: 45px;">
+			<div class="d-flex justify-content-between">
+				<img src="{{'sber_tutorial.gif' | staticfile}}" width="280px" height="560px" style="margin-left: 50px; margin-right: 50px;" alt="sber-tutorial">
+				<div style="width: 800px;">
+					<div class="text-center" style="margin-top: -15px;; font-size: 40px;">
+						<span>К оплате: {{to_pay}}р.</span></div>
+					<p align="justify"><span id="message">Откройте приложение СберБанк, а затем нажмите на значок QR в
+						верхней левой части экрана, как показано на видео.</span></p>
+					<div id ="qrcode" align="center"></div>
+				</div>
+			</div>
+		</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+					   data-params="''" class="btn-menu prev animated"
+					   loadingActivated="true" onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+<script>
+    var image = new Image();
+    image.src = 'data:image/png;base64,{{ qrcode }}';
+    image.setAttribute("height", "300");
+    document.getElementById("qrcode").appendChild(image);
+</script>
+</body>
+</html>

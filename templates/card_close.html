@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>Document</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			{% if card_type == "банковскую" %}
+			<div class="title">Пожалуйста, поднесите {{card_type}} карту.</div>
+			{% endif %}
+			{% if card_type == "клиентскую" %}
+			<div class="title" style="color: #e31212">Пожалуйста, поднесите {{card_type}} карту.</div>
+			{% endif %}
+			<div class="container">
+				<div class="text-center">
+					<p>{{amount_desc}}</p>
+					<img src="{{'pay-block.png' | staticfile}}" alt="pay-block" class="pay-block">
+					{% if card_type == "клиентскую" %}
+					<p><span id="phone-enter" style="font-size: 30px">Если у вас нет клиентской карты, вы можете войти по номеру телефона</span></p>
+					{% endif %}
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true" onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+                    {% if card_type == "клиентскую" %}
+                    <a id="phone" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu next animated"
+							enterAnimation="fadeInRight" loadingActivated="true"
+							onClickAnimation="fadeOutRight">
+						<span>По номеру телефона</span></a>
+                    {% endif %}
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+LOCAL_FOLDER=../
+USER=pi
+POST_NET=10.0.10
+POST_START=210
+POST_END=210
+REMOTE_FOLDER=/home/pi/python-test/
+REMOTE_MAIN=main.py
+
+REMOVE_MASK=*.pyc
+RUN=-r
+ARGS=$1
+
+
+for ((post=$POST_START; post<=$POST_END; post++))
+do
+    rsync -avzu --exclude={.tags,*.pyc,*.log,*.log.*,*.orig,*.conf,*.pickle} --progress --delete $LOCAL_FOLDER -e ssh $USER@$POST_NET.$post:$REMOTE_FOLDER
+ssh $USER@$POST_NET.$post << EOF
+killall -9 python
+killall -9 omxplayer.bin
+rm $REMOTE_FOLDER$REMOVE_MASK
+EOF
+done
+echo $ARGS
+
+if [[ "$ARGS" == "$RUN" ]];
+then
+for ((post=$POST_START; post<=$POST_END; post++))
+do
+ssh $USER@$POST_NET.$post << EOF
+export DISPLAY=:0.0
+$REMOTE_FOLDER$REMOTE_MAIN &
+EOF
+done
+fi
+
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+
+    <title>client_card_balance</title>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <header class="text-center">
+            <img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+        </header>
+        <main>
+            <div class="title ">Управление буфером отчетов</div>
+            <div class="container">
+                <div class="text-center">
+                    <p>Для создания отчета и сохранения его в буфер<br>
+                        <span class="subTitle">нажмите кнопку «Создать Z отчет»</span>
+                    </p>
+                    <p>Для печати всех отчетов, хранящихся в буфере
+                        (<span id="reports_count">?</span>)<br>
+                        <span class="subTitle">нажмите кнопку «Напечатать Z отчет»</span>
+                    </p>
+                    <p>После успешной печати отчетов из буфера<br>
+                        <span class="subTitle">нажмите кнопку «Очистить буфер»</span>
+                    </p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <a id="print" href="BackEnd.onButtonClick" data-bind="true" data-params="''"
+                       class="btn-menu print atmprint animated" enterAnimation="fadeInLeft"
+                       loadingActivated="true" onClickAnimation="fadeOutLeft">
+                        <span>Напечатать отчет(ы)</span>
+                    </a>
+                    <button id="clear" class="btn-menu next animated"
+                            onclick="clearReportBuffer()">Очистить буфер
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn-menu print animated"
+                            onclick="createZReport()">Создать Z отчет</button>
+                    <a id="main" href="BackEnd.onButtonClick" data-bind="true" data-params="''"
+                        class="btn-menu next animated" enterAnimation="fadeInRight"
+                        onClickAnimation="fadeOutRight"><span>Главный экран</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <div class="info-contants text-center">
+                    По всем вопросам обращаться по тел. {{phone_number}}
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-vertical-center" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6>ВНИМАНИЕ!</h6>
+                </div>
+                <div class="modal-body">
+                    <h4></h4>
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-on" type="button" class="btn-modal"
+                            onclick="">Ок</button>
+                    <button type="button" class="btn-modal" data-dismiss="modal"
+                            onclick="closeModal('modal')">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showModal(elementId, htmlText) {
+            document.body.classList.add('modal-open');
+            var obModal = document.getElementById(elementId);
+            obModal.querySelector('.modal-body').innerHTML = htmlText;
+            obModal.classList.add('show');
+            obModal.style.display = 'block';
+        }
+
+        function closeModal(elementId) {
+            document.getElementById('btn-on').style.visibility = 'visible';
+            document.body.classList.remove('modal-open');
+            var obModal = document.getElementById(elementId);
+            obModal.classList.remove('show');
+            obModal.style.display = 'none';
+        }
+
+        function clearReportBuffer() {
+            btnOk = document.getElementById("btn-on");
+            btnOk.setAttribute("onclick", "clearZandX()");
+            showModal('modal',
+                '<h4>Очистка буфера Z и X отчетов</h4>' +
+                '<p>Убедитесь, что отчеты напечатались.</p>' +
+                '<p>Подтвердите для очистки буфера.</p>'
+            );
+        }
+
+        function clearZandX() {
+            closeModal('modal');
+            BackEnd.onButtonClick("clear", "");
+        }
+
+        function createZReport() {
+            btnOk = document.getElementById("btn-on");
+            btnOk.setAttribute("onclick", "createZrep()");
+            showModal('modal',
+                '<h4>Создание Z отчета.</h4>' +
+                '<p>Z отчет должен создаваться автоматически в 8 часов утра. ' +
+                'Убедитесь, что вам это действительно необходимо.</p>' +
+                '<p>После создания напечатайте отчет из буфера кнопкой ' +
+                '"Напечатать Z и X отчет из буфера"</p>');
+        }
+
+        function createZrep() {
+            closeModal('modal');
+            BackEnd.onButtonClick("createReport", "");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{ 'bootstrap.min.css'|staticfile }}">
+	<link rel="stylesheet" href="{{ 'newdefine.css'|staticfile }}">
+	<title>Main</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title">Бесконтактная мойка автомобиля</div>
+			<div class="container one-collumn">
+				<div class="button-area">
+					<div class="button-container">
+						<a id="show" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option atmscreen animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Показать на экране</span></a></div>
+					<div class="button-container">
+						<a id="print" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option atmprint animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Напечатать</span></a></div>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true" onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

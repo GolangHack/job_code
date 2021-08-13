@@ -1,0 +1,3 @@
+Server Acquairing:		10.0.10.100
+Server Maria:			10.0.10.111
+RPLC:					10.0.10.55

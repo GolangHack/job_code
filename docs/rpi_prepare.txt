@@ -1,0 +1,123 @@
+Последовательность установки ПО на Raspberry
+
+-Switch on ssh and vnc on raspberry
+
+-Make passwordless ssh login
+ssh-copy-id -i pi@10.0.10.101
+
+-Install mc
+sudo apt-get install mc
+
+-Install pyside
+sudo apt-get install python-pyside
+
+-Install htmlPy
+sudo pip install htmlPy
+
+-Install PyQt4
+sudo apt-get install python-qt4
+sudo apt-get install python3-pyqt4
+
+-Install configparser
+sudo apt-get install python-configparser
+
+-Install smartcard
+sudo apt-get install python-pyscard
+sudo apt-get install python3-pyscard
+
+-Install pymodbus
+sudo pip install pymodbus
+
+-Install mysql connector
+sudo apt-get install python-mysql.connector
+
+-Create folder logs
+/home/pi/logs/
+
+-Install atol drivers for arm7
+sudo dpkg -i /home/pi/software/dto9_9.10.0.5560_armhf.deb
+
+-Install PCSCC driver and tools
+sudo apt-get install pcscd pcsc-tools
+
+-Install ethlink service
+copy /etc/systemd/system/ethlink.service
+copy /home/pi/bin/link.py
+sudo systemctl enable ethlink.service
+
+-Install ethernet over USB service
+copy /etc/systemd/system/eou.service
+copy /home/pi/bin/eou
+sudo systemctl enable eou.service
+
+-Add main python program to autostart
+copy /etc/xdg/autostart/rplc.desktop
+
+-Install synergy
+*login to account symless
+*download from cabinet source https://symless.com/synergy/download/direct?platform=debian&architecture=x64
+*copy to home folder / software
+*unzip and go to folder
+sudo apt-get install cmake
+sudo apt-get install libx11-dev
+
+00 Add synergy to autostart
+
+-Add monitor support 
+copy /boot/config.txt
+
+15. Add checkdisk on boot
+copy /boot/cmdline.txt
+
+16. Add delayed mount of logs on boot
+copy one line in /etc/fstab
+
+17 Remove splash screen
+in cmdline.txt remove splash
+
+-Disable screensaver
+sudo apt-get install xscreensaver
+start xscreensaver and disable 
+
+-Install netifaces
+sudo apt-get install python-netifaces
+
+-Reconfigure locales
+sudo -i
+dpkg-reconfigure locales
+select locale and enter
+
+-Install vim
+sudo apt-get install vim
+
+-Copy vim settings from local directory to RPLC
+
+-Install Snap7 
+install library for snap 
+Download SNAP7 library example for snap7-full-1.2.1
+in Pi command line:
+wget http://sourceforge.net/projects/snap7/files/1.2.1/snap7-full-1.2.1.tar.gz/download
+Unzip downloaded file
+in Pi command line:
+tar -zxvf snap7-full-1.2.1.tar.gz
+Compile library for raspberry (example for RPI 1 for RPI 2 use arm_v7_linux.mk)
+in Pi command line:
+cd snap7-full-1.2.1/build/unix
+sudo make -f arm_v6_linux.mk all
+Copy compiled library to lib directories
+in Pi command line:
+sudo cp ../bin/arm_v6-linux/libsnap7.so /usr/lib/libsnap7.so
+sudo cp ../bin/arm_v6-linux/libsnap7.so /usr/local/lib/libsnap7.so
+(optional) Install python pip if you don't have it
+in Pi command line:
+sudo apt-get install python-pip
+Instal python wraper for SNAP7 lib
+in Pi command line:
+sudo pip install python-snap7
+
+
+-Switch on I2C
+sudo raspi-config
+
+-Install spi-serial support
+https://www.raspberrypi.org/forums/viewtopic.php?p=1024636

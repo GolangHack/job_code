@@ -1,0 +1,66 @@
+{#Оставлено на случай если нужно отключить оплату по телефону#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{ 'bootstrap.min.css'|staticfile }}">
+	<link rel="stylesheet" href="{{ 'newdefine.css'|staticfile }}">
+	<title>Set pay</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title withSubTitle">Выберите способ оплаты</div>
+			<div class="subTitle"><span>{{pay_description}}</span></div>
+			{% if pay_qr_enabled == True %}
+			<div class="container">
+			{% else %}
+			<div class="container one-collumn">
+			{% endif %}
+				<div class="button-area">
+					<div class="button-container">
+						<a id="cash" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option atmcash animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Наличные</span></a></div>
+					<div class="button-container">
+						<a id="bank_card" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option atmcard animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Банковская карта</span></a></div>
+					<div class="button-container">
+						<a id="client_card" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option idcard animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Клиентская карта</span></a></div>
+					{% if pay_qr_enabled == True %}
+					<div class="button-container">
+						<a id="qr_code" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option sber animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>Сбербанк Плати QR</span></a></div>
+					{% endif %}
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

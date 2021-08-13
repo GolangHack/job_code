@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>client_card_balance</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="container">
+				<div class="title">Ваш QR чек</div>
+                {% if show_advertising_text == True %}
+                    <div class="subTitle">{{advertising_text}}</div>
+                {% endif %}
+                <div class="text-center">
+                    <img src="data:image/png;base64,{{ qrcode }}" height="300"
+                         class="qrcode pay-block" alt="">
+                </div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

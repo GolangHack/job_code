@@ -1,0 +1,20 @@
+IP Network:
+
+Description RPLC:	PLC Controller which installed inside payment terminal
+Login RPLC:		pi
+Password RPLC:		karcherry	
+PLC: 			10.0.10.55
+
+Description Card Server:	database server which installed in server room
+Login Card Server:		karcher
+Password Card Server:		karcher
+IP Card Sever:			10.0.10.111
+
+Description Acquiring PC:	PC which installed inside payment terminal
+Login Acquiring PC:	admin
+Pass Acquiring PC:	admin5
+IP Acquiring PC:	10.0.10.100
+
+DataBase connection:
+
+root secret

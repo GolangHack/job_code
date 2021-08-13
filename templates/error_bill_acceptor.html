@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>error_bill_acceptor</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<a id="exit-btn" href="BackEnd.onButtonClick" data-bind="true" data-params="''">
+				<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+			</a>
+		</header>
+		<main>
+			<div class="title">{{error_name}}</div>
+			<div class="container">
+				<div class="text-center">
+					<p><span id="error">Причина ошибки: {{error_text}}</span></p>
+					<p><span id="inserted">{{inserted}}</span></p>
+					<p><span id="dispensed">{{dispensed}}</span></p>
+					<p><span id="not-dispensed">{{not_dispensed}}</span></p>
+          <br>
+          <p>Для устранения ошибки обратитесь к администратору или позвоните по номеру телефона {{phone_number}}</p>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

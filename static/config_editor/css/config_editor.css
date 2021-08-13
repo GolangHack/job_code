@@ -1,0 +1,64 @@
+.navigator{
+    width: 170px;
+	text-align: center;
+    position: fixed;
+    z-index: 999;
+}
+.text-betwen-btn{
+	padding-top: 23px;
+	width: 25%
+}
+.btn-nav {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 65px;
+    border: 8px solid #0a7a8f;
+    background-color: #fff;
+    color: #0d798d;
+    font-size: 32px;
+    border-radius: 15px;
+    outline: none;
+    line-height: 36px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 5px;
+    padding-top: 7px;
+}
+.btn-nav:hover {
+	border: 8px solid #10d8ff;
+	text-decoration: none;
+	color: #0d798d;
+}
+.title-conf{
+	text-align: center;
+	font-size: 36px;
+	width: 1180px;
+	margin: 0 auto;
+}
+.content-configurator{
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 100% !important;
+}
+.row-disablepadding{
+    padding: 0 !important;
+}
+.row{
+     padding-left: 0 !important;
+     padding-right: 0 !important;
+}
+/*KEYBOARD*/
+.mCSB_dragger_bar{
+    width:35px!important;
+	background-color: #10d8ff !important;
+ }
+.mCSB_draggerRail{
+    width:3px!important;
+}
+.mCSB_scrollTools{
+	width:50px!important;
+}

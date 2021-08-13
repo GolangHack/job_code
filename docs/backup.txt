@@ -1,0 +1,11 @@
+# How to do backup
+
+# Create compressed on fly backup file from sdcard
+sudo bash -c "dd if=/dev/mmcblk0 status='progress' bs=1k | bzip2 --best > /where/to/compress/backup_file.bz2"
+
+# Uncompress backuped file
+bzip2 -d file.bz2
+
+# How to restore backup file
+sudo dd if=/where/is/backup/file.iso of=/dev/mmcblk0 status='progress' bs=1k
+

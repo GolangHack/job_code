@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+
+<!--	<link rel="stylesheet" href="{{'bootstrap/css/bootstrap.min.css' | staticfile}}">-->
+	<link rel="stylesheet" href="{{'config_editor/js/bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap/js/bootstrap.min.js' | staticfile}}">
+	<link rel="stylesheet" href="{{'config_editor/css/config_editor.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'config_editor/scroll/jquery.mCustomScrollbar.css' | staticfile}}">
+
+    <script src="{{'config_editor/jquery.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.plugin.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/scroll/jquery.mCustomScrollbar.concat.min.js' | staticfile}}"></script>
+	<title>report_control</title>
+    <style>
+        td{
+            padding: 5px;
+            color: #fff0f0;
+        }
+        *{
+            color: #fff0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main id="app">
+            <div id="scrolable" class="container"  data-mcs-theme="dark">
+		        <div class="title">Управление отчетами юридических лиц</div>
+                <table class="table">
+                <tr>
+                    <!--td style="width: 20%">UID</td-->
+                    <td style="width: 60%">Компания</td>
+                    <td style="width: 20%">Действия</td>
+                </tr>
+                {% for client in cards %}
+                <tr>
+                    <!--td>{{ client.id }}</td-->
+                    <td>{{ client.description }}</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-block"
+                                onclick="BackEnd.onButtonClick('toReportsByClientId', '{{ client.id }}');"
+                        >
+                            К отчетам
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="toAdministrationMenu" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span  style="color: #0d798d;">Назад</span></a>
+                    <a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInRight" loadingActivated="true"
+							onClickAnimation="fadeOutRight">
+						<span  style="color: #0d798d;">Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+<script>
+/*SCROLL*/
+(function($){
+    $(window).load(function(){
+        $("#wrapper").mCustomScrollbar({
+            axis:"y",
+            scrollInertia: 1200,
+            snapAmount: 200
+        });
+    });
+})(jQuery);
+</script>
+</body>
+</html>

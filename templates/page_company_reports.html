@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+
+<!--	<link rel="stylesheet" href="{{'bootstrap/css/bootstrap.min.css' | staticfile}}">-->
+	<link rel="stylesheet" href="{{'config_editor/js/bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap/js/bootstrap.min.js' | staticfile}}">
+	<link rel="stylesheet" href="{{'config_editor/css/config_editor.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'config_editor/scroll/jquery.mCustomScrollbar.css' | staticfile}}">
+
+    <script src="{{'config_editor/jquery.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/js/jquery.plugin.min.js' | staticfile}}"></script>
+    <script src="{{'config_editor/scroll/jquery.mCustomScrollbar.concat.min.js' | staticfile}}"></script>
+	<title>company_reports</title>
+    <style>
+        td{
+            padding: 5px;
+            color: #fff0f0;
+        }
+        *{
+            color: #fff0f0;
+        }
+        .btn{
+            margin: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main id="app">
+            <div id="scrolable" class="container"  data-mcs-theme="dark">
+		        <div class="title">Отчеты по карте юридического лица</div>
+                <table class="table">
+                <tr>
+                    <td style="width: 20%">Дата</td>
+                    <td style="width: 20%">Сумма</td>
+                    <td style="width: 60%">Действия</td>
+                </tr>
+                {% for report in reports %}
+                <tr>
+                    <td>{{ report.end_date_time }}</td>
+                    <td>{{ report.amount }}</td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-block"
+                            onclick="sendReport('{{ report.id }}')"
+                        >
+                            Переслать простой отчет
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span  style="color: #0d798d;">Главный экран</span></a>
+                    <div href="" class="btn-menu next" onclick="createReport();">
+						<span style="color: #0d798d; text-align: center;">Создать отчет</span></div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+<script>
+    function createReport() {
+        var isCreateReport = confirm("Подтвердите создание отчета. \n(Отчет не будет создан в случае отсутствия моек по карте)");
+        if (isCreateReport){
+            BackEnd.onButtonClick('createReport', '');
+        }
+    }
+
+    function sendReport(reportID) {
+        alert("Отчет будет отправлен на почту. Если отчет не был" +
+            " доставлен, пожалуйста убедитесь, что переменная конфигурирования " +
+            "email_receivers_company_reports содержит вашу почту. Или нажмите кнопку повторно.");
+        BackEnd.onButtonClick('sendEasyReport', reportID);
+    }
+    /*SCROLL*/
+    (function($){
+        $(window).load(function(){
+            $("#wrapper").mCustomScrollbar({
+                axis:"y",
+                scrollInertia: 1200,
+                snapAmount: 200
+            });
+        });
+    })(jQuery);
+</script>
+</body>
+</html>

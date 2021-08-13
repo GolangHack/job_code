@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>updater</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<p style="font-size: 32px; text-align: center; margin: 0;">{{ versions }}</p>
+			<div class="title" style="padding: 0;">Обновление ПО</div>
+			<div class="container">
+				<p id="info" align="justify" style="font-size: 32px; margin: 0;">Нажмите 'Проверить
+					возможность обновления'. Если обновление будет возможно, кнопка 'Обновить ПО'
+					станет доступной. При проблемах с соединением или наличии локальных изменений,
+					обновление будет невозможно.<br>После нажатия на копну 'Обновить ПО' программа
+					будет остановлена и перезапущена по окончанию обновления.</p>
+				<br>
+				<p id="message" style="font-size: 32px; text-align: center; margin: 0;"></p>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<div>
+						<p style="text-align: center; margin: 0; font-size: 23px;">~ 1 минута</p>
+						<div class="button-container">
+							<a id="check_possibility_updating" href="BackEnd.onButtonClick"
+							   data-bind="true" data-params="''" class="btn-option no-icon animated"
+							   enterAnimation="flipInX">
+								<span>Проверить возможность обновления</span></a></div>
+					</div>
+					<div>
+						<p style="text-align: center; margin: 0; font-size: 23px;">~ 5 минут</p>
+						<div class="button-container">
+							<a id="update" href="BackEnd.onButtonClick" data-bind="true"
+									data-params="''" class="btn-option no-icon animated"
+									enterAnimation="flipInX">
+								<span>Обновить ПО</span></a></div>
+					</div>
+				</div>
+				<div class="d-flex justify-content-between">
+					<a id="back" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated" loadingActivated="true"
+							enterAnimation="fadeInLeft" onClickAnimation="fadeOutLeft">
+						<span>Назад</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

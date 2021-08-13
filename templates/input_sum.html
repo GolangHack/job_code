@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{ 'bootstrap.min.css'|staticfile }}">
+	<link rel="stylesheet" href="{{ 'newdefine.css'|staticfile }}">
+	<title>Num</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title num">Введите сумму</div>
+			<div class="container">
+				<div class="input-area">
+					<div class="input-container"><span
+							id="input_value"></span><a id="backspace" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"></a></div>
+				</div>
+				<div class="button-area num">
+					<div class="button-container"><a id="btn_1" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>1</span></a></div>
+					<div class="button-container"><a id="btn_2" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>2</span></a></div>
+					<div class="button-container"><a id="btn_3" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>3</span></a></div>
+					<div class="button-container"><a id="btn_4" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>4</span></a></div>
+					<div class="button-container"><a id="btn_5" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>5</span></a></div>
+					<div class="button-container"><a id="btn_6" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>6</span></a></div>
+					<div class="button-container"><a id="btn_7" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>7</span></a></div>
+					<div class="button-container"><a id="btn_8" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>8</span></a></div>
+					<div class="button-container"><a id="btn_9" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>9</span></a></div>
+					<div class="button-container"><a id="btn_0" href="BackEnd.onButtonClick" class="btn-num" data-bind="true" data-params="''" enterAnimation="flipInX"><span>0</span></a></div>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+					<a id="next" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu next animated"
+							enterAnimation="fadeInRight" loadingActivated="true"
+							onClickAnimation="fadeOutRight">
+						<span>Продолжить</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

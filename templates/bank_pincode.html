@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+    <link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+    <title>bank_pincode</title>
+</head>
+<body>
+<div class="wrapper" id="wrapper">
+    <header class="text-center">
+        <img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+    </header>
+    <main>
+        <div class="title">Введите ПИН-код карты</div>
+        <div class="container">
+            <div class="text-center mt-30">
+                <p><span id="pincodeMask" class="display-4">_ _ _ _</span></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

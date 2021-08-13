@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' |staticfile }}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>Program</title>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title">Выберите программу</div>
+			<div class="container one-collumn">
+				<div class="button-area">
+					<div class="button-container info-btn-three">
+						<div class="info-text-three">{{program_description[0]}}</div>
+						<a id="prg_0" href="BackEnd.onButtonClick" data-bind="true"
+								data-params="''" class="btn-option carwashpro01 animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>{{program[0]}}</span>
+                            {% if not programs_night_disabled %}
+                                <span class="advanced-text">Ночью с {{night_start}}<sup>00</sup> до {{night_stop}}<sup>00</sup> - {{night_price[0]}}₽</span>
+                            {% endif %}
+                        </a></div>
+					<div class="button-container info-btn-three">
+						<div class="info-text-three">{{program_description[1]}}</div>
+						<a id="prg_1" href="BackEnd.onButtonClick"
+								data-bind = "true" data-params="''"
+								class="btn-option carwashpro02 animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>{{program[1]}}</span>
+                            {% if not programs_night_disabled %}
+                                <span class="advanced-text">Ночью с {{night_start}}<sup>00</sup> до {{night_stop}}<sup>00</sup> - {{night_price[1]}}₽</span>
+                            {% endif %}
+                        </a></div>
+					<div class="button-container info-btn-three">
+						<div class="info-text-three">{{program_description[2]}}</div>
+						<a id="prg_2" href="BackEnd.onButtonClick"
+								data-bind = "true" data-params="''"
+								class="btn-option carwashpro02 animated"
+								onClickAnimation="lightSpeedOut" enterAnimation="flipInX">
+							<span>{{program[2]}}</span>
+                            {% if not programs_night_disabled %}
+                                <span class="advanced-text">Ночью с {{night_start}}<sup>00</sup> до {{night_stop}}<sup>00</sup> - {{night_price[2]}}₽</span>
+                            {% endif %}
+                        </a></div>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a id="main" href="BackEnd.onButtonClick" data-bind="true"
+							data-params="''" class="btn-menu prev animated"
+							enterAnimation="fadeInLeft" loadingActivated="true"
+							onClickAnimation="fadeOutLeft">
+						<span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

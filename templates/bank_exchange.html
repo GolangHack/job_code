@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>bank_exchange</title>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="text-center">
+			<img src="{{'logo.png' | staticfile}}" alt="logo" class="head-logo">
+		</header>
+		<main>
+			<div class="title">Пожалуйста, подождите...</div>
+			<div class="container">
+				<div class="text-center">
+					<p><span id="message"></span></p>
+					<img src="{{'loading.gif' | staticfile}}" alt="loading">
+					<p>Идет обмен данными с банком</p>
+				</div>
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

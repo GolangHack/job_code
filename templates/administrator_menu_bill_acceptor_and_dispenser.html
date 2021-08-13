@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="{{'animate.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'bootstrap.min.css' | staticfile}}">
+	<link rel="stylesheet" href="{{'newdefine.css' | staticfile}}">
+	<title>administrator_menu_bill_acceptor_and_dispenser</title>
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+		<header class="text-center">
+			<img src="{{ 'logo.png'|staticfile }}" alt="logo" class="head-logo">
+		</header>
+		<main>
+		<div class="title" style="padding-bottom: 0;">Разменник купюр и купюроприемник</div>
+            <div class="container one-collumn">
+                {% if recycler %}
+                <p style="text-align: center;">Купюр в купюроразменнике: <span id="counterBills">?</span></p>
+                <div class="button-area">
+					<div class="button-container">
+						<a id="clearTopFloat" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   enterAnimation="flipInX">
+							<span>Очистить разменник купюр<br>в кэшбокс</span></a></div>
+                    <div class="button-container">
+						<a id="inhibitOff" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   enterAnimation="flipInX">
+							<span>Включить купюроприемник</span></a></div>
+                    <div class="button-container">
+						<a id="inhibitOn" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   enterAnimation="flipInX">
+							<span>Выключить купюроприемник</span></a></div>
+                </div>
+                {% else %}
+                <div class="button-area">
+                    <div class="button-container">
+						<a id="refreshDispenserStatus" href="BackEnd.onButtonClick"
+						   class="btn-option no-icon animated" data-bind="true" data-params="''"
+						   enterAnimation="flipInX">
+							<span>Обновить статус разменника купюр</span></a></div>
+                    <p id="message" class="text-center"></p>
+                </div>
+                {% endif %}
+			</div>
+		</main>
+		<footer>
+			<div class="container">
+				<div class="d-flex justify-content-between">
+					<a href="BackEnd.onButtonClick('main', JSON.stringify(this.data));"
+                       data-bind="true"
+                       data-params="''" class="btn-menu prev animated"
+                       enterAnimation="fadeInLeft" loadingActivated="true"
+                       onClickAnimation="fadeOutLeft">
+                        <span>Главный экран</span></a>
+				</div>
+			</div>
+			<div class="container">
+				<div class="info-contants text-center">По всем вопросам обращаться по тел. {{phone_number}}</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
