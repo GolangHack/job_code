@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from htmlpy_core.html_page import HtmlPage
-from threading import Timer
+#from threading import Timer
+from pyutils.delay import Delay
 from operation_scenario import OperationScenario
 import logging
 
