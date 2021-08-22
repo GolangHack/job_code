@@ -5,7 +5,8 @@ import time
 from data_storage.database import Card
 from data_storage.database.settingsManager import SettingsManager
 from htmlpy_core.html_page import HtmlPage
-from threading import Timer
+#from threading import Timer
+from pyutils.delay import Delay
 from operation_scenario import OperationScenario
 import logging
 import config
@@ -27,7 +28,9 @@ class PageCardClose(HtmlPage):
         log.info("Enter page")
         self.operationScenario = self.getVariable('operationScenario')
         self.operationScenario.canGoToSleepMode = False
+
         # Если была приостановлена работа card_close - продолжить
+
         if self.operationScenario.cardCloseRefuse:
             threading.Thread(target=self.cardEvent).start()
             print(u"Восстанавливаю работу с функции self.cardEvent")
@@ -43,7 +46,7 @@ class PageCardClose(HtmlPage):
 
         if config.getProperty('debug_emualete_bank_card', default=False, _type='bool') and\
                 (self.operationScenario.getPaySource() == OperationScenario.PAY_SOURCE_BANK_CARD):
-            Timer(1, lambda: self.switchTo("PageBankExchange")).start()
+            Delay.once(self, 1, pageBankExchange)
 
         elif config.getProperty("emulate_client_card", False, _type='bool') and self.operationScenario.receiveCardsEnabled:
             print("Enable the emulate client card. Insert test card.")
@@ -55,19 +58,22 @@ class PageCardClose(HtmlPage):
             self.operationScenario.setCardSubType(card.type)
             self.operationScenario.setCardBalance(card.balance)
             # self.operationScenario.setCardSubType(config.getProperty("debug_card_sub_type", "companycard"))
-            Timer(1, self.cardEvent).start()
+            #Timer(1, self.cardEvent).start()
+            Delay.once(self, 1, CardEvent)
+
 
         # при бездействии 60 сек, выкинуть на главный экран
         def inactivityAction():
             log.info("Card inactivity action executed!")
             self.operationScenario.disableReceiveCards()
             self.switchTo("PageMain")
-        self.inactivityTimer = Timer(60, inactivityAction)
-        self.inactivityTimer.start()
+        self.inactivityTimer = Delay.once(self, 60, inactivityAction)
+
+        #self.inactivityTimer.start()
 
     def onExit(self, nextPage, *args, **kwargs):
         log.info("Exit page")
-        self.inactivityTimer.cancel()
+        #self.inactivityTimer.cancel()
         self.setVariable(amount_desc=u'')
 
     def cardEvent(self):
@@ -128,6 +134,7 @@ class PageCardClose(HtmlPage):
                 self.switchTo("PageError", page_title=u'Внимание',
                               error_text=u'Новая клиентская карта была создана.<br>'
                                          u'Повторите операцию пополнения карты')
+
         # Оплата мойки робото клиентской картой
         elif self.operationScenario.getCardClosePurpose() == OperationScenario.CARD_CLOSE_PURPOSE_PAY:
             if self.operationScenario.getPaySource() == OperationScenario.PAY_SOURCE_CLIENT_CARD:

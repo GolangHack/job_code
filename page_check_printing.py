@@ -12,14 +12,15 @@ class PageCheckPrinting(HtmlPage):
         self.operationScenario = self.getVariable('operationScenario')
 
         def wait_some():
-            print "Payment with printing check"
+            print ("Payment with printing check")
             self.operationScenario.pay()
 
             if self.operationScenario.getPayDestination() == OperationScenario.PAY_DEST_ROBOT:
                 self.switchTo("PageQueueNumber")
             else:
                 self.switchTo("PageQRCode")
-        Timer(1, wait_some).start()
+        # Timer(1, wait_some).start()
+        Delay.once(self, 1, wait_some)
 
     def onExit(self, nextPage, *args, **kwargs):
         logging.getLogger(__name__).info("Exit page")

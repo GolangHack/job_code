@@ -59,44 +59,70 @@ class PageUpdater(HtmlPage):
         logging.getLogger(__name__).info("Exit page")
 
     def check_connection_with_repos(self):
-        access_list = []
         for repo in self.paths_to_repositories:
+            access = None
+
             try:
-                print 'Проверка доступа к {}'.format(repo)
+                print ('Проверка доступа к {}'.format(repo))
+
                 self.changeValueById('message', u"Проверка доступа к {}".format(repo))
                 subprocess.check_output('cd {}/{}; git fetch'.format(self.home_dir, repo),
                                         shell=True,
                                         stderr=subprocess.STDOUT)
                 logging.getLogger(__name__).info(u"Доступ к {} получен".format(repo))
-                access_list.append('1')
+                access=True
+
             except subprocess.CalledProcessError:
                 logging.getLogger(__name__).error(u"Ошибка доступа к {}".format(repo))
-                print 'Ошибка доступа к {}'.format(repo)
-                access_list.append('0')
-        if '0' not in access_list:
+                print ('Ошибка доступа к {}'.format(repo))
+                access=False
+        
+            if access == False:
+                break 
+
+        if access == True:
             self.check_local_changes()
+
         else:
             self.changeValueById('message', u"Обновление ПО невозможно. Нет доступа.")
             self.setElementEnabled("back", True)
+    
 
     def check_local_changes(self):
-        repos_with_local_changes = []
+        CHANGES_NOT_STAGED_FOR_COMMIT = "Changes not staged for commit"
+        CONTENT_MODIFIED = "Content modified"
+        NEW_COMMITS = "New commits"
+
         logging.getLogger(__name__).info(u'Проверка локальных изменений в репозиториях')
+
         for repo in self.paths_to_repositories:
+
             self.changeValueById('message', u"Проверка локальных изменений в {}".format(repo))
             output = subprocess.check_output('cd {}/{}; git status'.format(self.home_dir, repo),
                                              shell=True, stderr=subprocess.STDOUT)
-            if 'Changes not staged for commit' in output:
-                repos_with_local_changes.append('1')
+
+            if output == CHANGES_NOT_STAGED_FOR_COMMIT:
                 print('Имеются локальные изменения в {}'.format(repo))
-                logging.getLogger(__name__).error(u'Имеются локальные изменения в {}'.format(repo))
+                logging.getLogger(__name__).check_output(u'Имеются локальные изменения в {}'.format(repo))
+            
+            elif output == CONTENT_MODIFIED:
+                print('Обновление невозможно в {}'.format(repo))
+                logging.getLogger(__name__).error(u'Обновление невозможно в {}'.format(repo))
+
+            elif output == NEW_COMMITS:
+                print('Есть новые комиты обновлятся можно в {}'.format(repo))
+                logging.getLogger(__name__).info(u'Есть новые коммиты обновляться можно в {}'.format(repo))
+        
             else:
-                repos_with_local_changes.append('0')
-                print('Нет локальных изменений в {}'.format(repo))
-                logging.getLogger(__name__).info(u'Нет локальных изменений в {}'.format(repo))
-        if '1' in repos_with_local_changes:
+                print('Обновление невозможно, git status вернул иное. '.format(repo))
+                logging.getLogger(__name__).error(u'обновление невозможно в {}'.format(repo))
+
+        if output == CONTENT_MODIFIED:
             self.changeValueById('message', u"Обновление ПО невозможно. Имеются локальные изменения.")
+
         else:
             self.changeValueById('message', u"Обновление ПО возможно")
             self.setElementEnabled("update", True)
+
         self.setElementEnabled("back", True)
+

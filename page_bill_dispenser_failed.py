@@ -7,22 +7,26 @@ import logging
 
 class PageBillDispenserFailed(HtmlPage):
 
-    def onButtonClick(self, button, arg):
-        if button == "next":
+    def onButtonClick(self, button, arg):#функция нажатия кнопки 
+
+        if button == "next":#если нажата переходим на PsgePayCash
             self.switchTo("PagePayCash")
-        elif button == "main":
+
+        elif button == "main":#если нажата переходим на PageMain
             self.switchTo("PageMain")
 
     def onEnter(self, prevPage, *args, **kwargs):
+
         self.operationScenario = self.getVariable('operationScenario')
-        if self.operationScenario.atolModeOnlyQrCodeCheck():
-            self.changeElementVisibility(id='paper_is_out', visible=False)
+        if self.operationScenario.atolModeOnlyQrCodeCheck():#если сработала qrcheck
+            self.changeElementVisibility(id='paper_is_out', visible=False)#изменить видимость
+
         else:
-            isPaperOut = not self.operationScenario.checkHasPaper()
+            isPaperOut = not self.operationScenario.checkHasPaper()#если бумага не выдана
             self.operationScenario.setHasPaper(not isPaperOut)
-            self.changeElementVisibility(id='paper_is_out', visible=isPaperOut)
+            self.changeElementVisibility(id='paper_is_out', visible=isPaperOut)#изменить видимость элемента
         logging.getLogger(__name__).info("Enter page")
 
     def onExit(self, nextPage, *args, **kwargs):
         # self.operationScenario.pay()
-        logging.getLogger(__name__).info("Exit page")
+        logging.getLogger(__name__).info("Exit page")#выход

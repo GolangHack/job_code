@@ -28,7 +28,7 @@ class PageAdministartorMenu(HtmlPage):
                 currently_version = currently_version_file.read()
             with open("{}/updater/actual_version".format(os.path.expanduser("~"))) as actual_version_file:
                 actual_version = actual_version_file.read()
-            self.setVariable(versions=u"Текущая версия ПО: {}⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Актуальная версия ПО: {}".format(currently_version, actual_version))
+            self.setVariable(versions=u"Текущая версия ПО: {} Актуальная версия ПО: {}".format(currently_version, actual_version))
             if int(currently_version) < int(actual_version):
                 self.setVariable(must_update=True)
             else:

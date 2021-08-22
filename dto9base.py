@@ -5,10 +5,9 @@ import ctypes
 import xml.dom.minidom
 import sys, platform, os
 
-
 class DTO9Base(object):
-    DEFAULT_BUFF_SIZE = 4096
 
+    DEFAULT_BUFF_SIZE = 4096
     CREATE_INTERFACE_PROTOTYPE = ctypes.CFUNCTYPE(ctypes.c_void_p, ctypes.c_int)
     RELEASE_INTERFACE_PROTOTYPE = ctypes.CFUNCTYPE(None, ctypes.POINTER(ctypes.c_void_p))
     SET_INT_PROTOTYPE = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_int)
@@ -24,18 +23,22 @@ class DTO9Base(object):
     GET_VOIDPTR_PROTOTYPE = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.POINTER(ctypes.c_void_p))
     METHOD_PROTOTYPE = ctypes.CFUNCTYPE(ctypes.c_int, ctypes.c_void_p)
 
-    def __init__(self, library_name, version):
-        self.library_name = library_name
+    def __init__(self, library_name, version):#инициализация класса
+        self.library_name = library_name#имя библиотеки
         assert sys.version_info >= (2, 6)
         if platform.system() == 'Windows':
-            ctypes.CDLL(os.path.dirname(self.library_name) + os.sep + 'libgcc_s_dw2-1.dll', mode=ctypes.RTLD_LOCAL)
-            ctypes.CDLL(os.path.dirname(self.library_name) + os.sep + 'mingwm10.dll', mode=ctypes.RTLD_LOCAL)
+            ctypes.CDLL(os.path.dirname(self.library_name) + os.sep + 'libgcc_s_dw2-1.dll', 
+            mode=ctypes.RTLD_LOCAL)
+            ctypes.CDLL(os.path.dirname(self.library_name) + os.sep + 'mingwm10.dll', 
+            mode=ctypes.RTLD_LOCAL)
         self.library = ctypes.CDLL(self.library_name, mode=ctypes.RTLD_LOCAL)
-        func = self.CREATE_INTERFACE_PROTOTYPE(('Create{}Interface'.format(self._module_name()), self.library))
+        func = self.CREATE_INTERFACE_PROTOTYPE(('Create{}Interface'.format(self._module_name()), 
+        self.library))#создаем прототип интерфэйса
         self.interface = ctypes.c_void_p(func(version))
 
     def __del__(self):
-        func = self.RELEASE_INTERFACE_PROTOTYPE(('Release{}Interface'.format(self._module_name()), self.library))
+        func = self.RELEASE_INTERFACE_PROTOTYPE(('Release{}Interface'.format(self._module_name()), 
+        self.library))
         func(ctypes.pointer(self.interface))
         
     def _to_string(self, value): 

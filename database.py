@@ -35,7 +35,10 @@ class Database:
         while (connectionTrials < self.CONN_TRIALS) or self.connectionChecked:
             try:
                 mariadb_connection = mariadb.connect(
-                    user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+                    user=self._database_user, 
+                    password=self._database_password, 
+                    database=self._database_database, 
+                    host=self._database_host)
                 cursor = mariadb_connection.cursor()
                 self.connectionChecked = True
                 cursor.close()
@@ -45,7 +48,7 @@ class Database:
                 connectionTrials +=1
                 log.info('Can not connect to database. Try to reconnect... %s', connectionTrials)
             except mariadb.errors.ProgrammingError as r:
-                log.info(u"Не удалось получить досутп оп этим данным")
+                log.info(u"Не удалось получить досутп по этим данным")
                 print(r.message)
             time.sleep(self.CONN_TRIAL_DELAY)
 
@@ -54,10 +57,12 @@ class Database:
 
     def card_exist(self, uid):
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+            user=self._database_user, password=self._database_password, 
+            database=self._database_database, host=self._database_host)
         cursor = mariadb_connection.cursor()
         cursor.execute(
-            "SELECT COUNT(*), balance, type FROM " + self._database_database  + ".card WHERE uid=%s;", (uid,))
+            "SELECT COUNT(*), balance, type FROM " + self._database_database  + ".card WHERE uid=%s;",
+             (uid,))
         for row in cursor:
             if row[0] == 0:
                 cursor.close()
@@ -72,10 +77,12 @@ class Database:
 
     def card_insert(self, uid):
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+            user=self._database_user, password=self._database_password, 
+            database=self._database_database, host=self._database_host)
         cursor = mariadb_connection.cursor()
         log.info('Card %s does not exist. Adding card to database', uid)
-        cursor.execute("INSERT INTO card (uid,balance,registration_date) VALUES (%s,%s,NOW());", (uid, 0,))
+        cursor.execute("INSERT INTO card (uid,balance,registration_date) VALUES (%s,%s,NOW());", 
+        (uid, 0,))
         mariadb_connection.commit()
         cursor.close()
         mariadb_connection.close()
@@ -84,10 +91,12 @@ class Database:
     def card_info(self, uid):
         info = {'money':0,'type':'credit','description':'none','discount':0,'blocked':True}
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+            user=self._database_user, password=self._database_password, 
+            database=self._database_database, host=self._database_host)
         cursor = mariadb_connection.cursor()
         cursor.execute(
-            "SELECT COUNT(*), balance, type, description, discount, blocked FROM " + self._database_database  + ".card WHERE uid=%s;", (uid,))
+            "SELECT COUNT(*), balance, type, description, discount, blocked FROM " + 
+            self._database_database  + ".card WHERE uid=%s;", (uid,))
         for row in cursor:
             if row[0] != 0:
                 pass
@@ -119,18 +128,23 @@ class Database:
         Also put transaction at two tables (increasing and decreasing table)
         """
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+            user=self._database_user, password=self._database_password, 
+            database=self._database_database, host=self._database_host)
         cursor = mariadb_connection.cursor()
 
         if type_update == 'delta':
             # Add row into refill table
             if money_delta > 0:
                 cursor.execute('''INSERT INTO refill (amount,event_date,card_uid,remaining)
-                            VALUES ({0},NOW(),{1}, (select balance from card where uid = {1}) + {0})'''.format(money_delta, uid))
+                            VALUES ({0},NOW(),{1},
+                             (select balance from card where uid = {1}) + {0})'''.format(money_delta, 
+                             uid))
             # Add row into spent table
             if money_delta < 0:
                 cursor.execute('''INSERT INTO spent (amount,event_date,card_uid, remaining)
-                            VALUES ({0},NOW(),{1}, (select balance from card where uid = {1}) + {0})'''.format(money_delta, uid))
+                            VALUES ({0},NOW(),{1}, 
+                            (select balance from card where uid = {1}) + {0})'''.format(money_delta, 
+                            uid))
         # Get card balance
         cursor.execute(
             "SELECT COUNT(*), balance FROM " + self._database_database  + ".card WHERE uid=%s;", (uid,))
@@ -155,7 +169,8 @@ class Database:
         необходимой для формирования автоматических отчетов"""
         finance = []
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database,
+            user=self._database_user, password=self._database_password, 
+            database=self._database_database,
             host=self._database_host)
         cursor = mariadb_connection.cursor(dictionary=True)
         # подготовка времени
@@ -177,7 +192,9 @@ class Database:
     def getWeryAllFromFinance(self, report_hour, report_minute, date_start='1997-08-14'):
         finance = []
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database,
+            user=self._database_user, 
+            password=self._database_password, 
+            database=self._database_database,
             host=self._database_host)
         cursor = mariadb_connection.cursor(dictionary=True)
         dtr = datetime.datetime.now()
@@ -210,7 +227,10 @@ class Database:
         money_from_cashback = pay_transaction['money_from_cashback']
 
         mariadb_connection = mariadb.connect(
-            user=self._database_user, password=self._database_password, database=self._database_database, host=self._database_host)
+            user=self._database_user, 
+            password=self._database_password, 
+            database=self._database_database, 
+            host=self._database_host)
         cursor = mariadb_connection.cursor()
 
         query = '''INSERT INTO finance (source,

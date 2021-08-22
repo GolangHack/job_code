@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import logging
+import logging #импортируем библиотеку
 import time
 
 from apscheduler.jobstores.base import JobLookupError
 from astral import Astral
 from apscheduler.schedulers.background import BackgroundScheduler
+
 'https://github.com/agronholm/apscheduler'
 import datetime
 

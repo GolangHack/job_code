@@ -69,7 +69,7 @@ else:
     logging.getLogger(__name__).info('Load delay timer elapsed')
 
     # check internet every 30 second.
-    internet = InternetCheckerThread()
+    internet = InternetCheckerThread()#?
 
     # Bind app to backend and pass sequencer object to the backend
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))

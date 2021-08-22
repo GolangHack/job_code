@@ -10,19 +10,19 @@ from data_storage.database.connection_manager import initConnection
 log = logging.getLogger(__name__)
 
 configuration = None
-ETHERNET = 'eth0'
+ETHERNET = 'eth0' #наименование порта
 
 
-class VariablesFromDB(SettingChangedReceiver):
+class VariablesFromDB(SettingChangedReceiver):#переменные из базы данных
     """В данной реализации нету автоупдейта"""
 
-    def settingChanged(self, setting):
+    def settingChanged(self, setting):#нет настроек
         pass
 
-    def __init__(self):
-        self.sm = SettingsManager()
-        self.settings = self.sm.getSettingsAll()
-        self.groupedSettings = self.sm.getSettingsGroupAll()
+    def __init__(self):#инициализирем класс 
+        self.sm = SettingsManager()#менеджер настроек 
+        self.settings = self.sm.getSettingsAll()#получить все настройки
+        self.groupedSettings = self.sm.getSettingsGroupAll()#получить все настройки групп
 
         # TODO как-то реализовать подписку на параметры
         # for key in self.settings:
@@ -30,29 +30,35 @@ class VariablesFromDB(SettingChangedReceiver):
 
     'эмуляция интерфейса configparser'
 
-    def sections(self):
-        return [x for x in self.groupedSettings]
+    def sections(self):#секции базы
+        return [x for x in self.groupedSettings]#проход по секциям с помощью цикла
 
     def has_option(self, sec, pname, prefix):
-        return self.settings.has_key(prefix+pname)
+        return self.settings.has_key(prefix+pname)#получить ключи настроек по префиксу
 
-    def has_type(self, sec, pname, prefix):
+    def has_type(self, sec, pname, prefix):#вернуть  тип данных
+        '''вернуть True если префикс и имя типа данных не равны пустой строке
+        в противном случае вернуть False
+        '''
         return True if self.settings[prefix+pname].getNameType() != "" else False
 
-    def get(self, sec, pname, prefix):
+    def get(self, sec, pname, prefix):#вернуть данные
         return self.settings[prefix+pname].getValue()
 
     def items(self, sections):
-        return [(x, self.groupedSettings[sections][x].getValue()) for x in self.groupedSettings[sections]]
+        return [(x, self.groupedSettings[sections][x].getValue())
+        #пройти по групповым настройкам циклом 
+         for x in self.groupedSettings[sections]]
 
-def readConfig(f_name):
-    if not os.path.exists(f_name):
+def readConfig(f_name):#чтение конфигурации
+    if not os.path.exists(f_name):#если ос вернула f_name
         log.critical(u'По указанному пути "%s" нет файла конфигурации', f_name)
         return None
-    global configuration
-    configuration = configparser.RawConfigParser()
+
+    global configuration#глабальная переменная
+    configuration = configparser.RawConfigParser()#инициализируем переменную
     log.info(u'Загружен файл конфигурации по пути %s', f_name)
-    configuration.read(f_name)
+    configuration.read(f_name)#читаем конфигурацию
     return True
 
 def _typing(value, nametype):
@@ -83,9 +89,9 @@ def getProperty(pname, default=None, _type=None, prefix="cfg_"):
     :return: параметр
     """
     "It db property? "
-    if type(configuration) == VariablesFromDB:
+    if type(configuration) == VariablesFromDB:#если тип соответствует переменной для базы
         if configuration.has_option("", pname, prefix):
-            "No has_type? Update data_storage!"
+            print("No has_type? Update data_storage!")
             if configuration.has_type("", pname, prefix) or not _type:
                 return configuration.get("", pname, prefix)
             else:
@@ -108,7 +114,8 @@ def getProperty(pname, default=None, _type=None, prefix="cfg_"):
 
 def setProperty(name, value):
     """Устанавливает значение в базе данных значение variable"""
-    global configuration
+    global configuration#глабальная переменная 
+
     if isinstance(configuration, VariablesFromDB):
         configuration.settings[name].setValue(value)
         log.info('Set "%s" value "%s"' % (name, value))

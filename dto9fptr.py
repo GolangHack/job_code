@@ -115,7 +115,8 @@ class Fptr(dto9base.DTO9Base):
 
     def put_Time(self, time):
         func = self.SET_TRIPLE_INT_PROTOTYPE((self._setter_name('Time'), self.library))
-        if func(self.interface, ctypes.c_int(time[0]), ctypes.c_int(time[1]), ctypes.c_int(time[2])) < 0:
+        if func(self.interface, ctypes.c_int(time[0]), ctypes.c_int(time[1]), 
+        ctypes.c_int(time[2])) < 0:
             self._print_result(inspect.currentframe().f_code.co_name)
         return self.get_Result()
 

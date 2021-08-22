@@ -56,7 +56,8 @@ class PageInputAccessCode(HtmlPage):
     def _resetTimerTrailsEnterPinCode(self):
         """Включить кнопку по истечению времени"""
         self.setElementEnabled("send_recent", False)
-        Timer(30, self._setEnableSendRecent).start()
+        #Timer(30, self._setEnableSendRecent).start()
+        Delay.once(self, 30, setEnableSendRecent)
         print("Disable button send_recent")
 
     def _setEnableSendRecent(self):
