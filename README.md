@@ -1,2 +1,2 @@
 # robot_car_wash
-Полный репозиторий проекта модульной роботизированной автомойки на Python
+Complete Repository of the Modular Robotic Car Wash Project in Python
